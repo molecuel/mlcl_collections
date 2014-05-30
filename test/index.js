@@ -124,7 +124,7 @@ describe('mlcl_elastic', function() {
     it('should save a lot of objects to database', function(done) {
       var count = 0;
       async.whilst(
-        function () { return count < 500; },
+        function () { return count < 50; },
         function (callback) {
           var mypage = new pagemodel();
           mypage.lang = 'en';
@@ -160,7 +160,7 @@ describe('mlcl_elastic', function() {
         should.not.exists(error);
         result.should.be.a.object;
         should.exists(result.hits.hits[0]);
-        assert(result.hits.total === 501);
+        assert(result.hits.total === 51);
         result.hits.hits[0].should.be.a.object;
         done();
       });
