@@ -88,6 +88,21 @@ collections.prototype.registerCollection = function registerCollection(collectio
   this.collectionRegistry[collection.name] = collection;
 };
 
+
+collections.prototype.apiGet = function apiGet(req, res, next) {
+  var collections = getInstance();
+  var collection = collections.getCollection(req.params.name);
+  if(collection) {
+    var currentQuery = new collquery(collections.elastic, new collections.getCollection(req.params.name), req.query);
+    currentQuery.exec(function(err, result) {
+      res.locals.api = result;
+      next();
+    });
+  } else {
+    next();
+  }
+};
+
 /**
  * Return the definition of the collection query
  * @param name
