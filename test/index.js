@@ -31,8 +31,7 @@ describe('mlcl_elastic', function() {
 
     molecuel.config = { };
     molecuel.config.search = {
-      host: 'localhost',
-      port: '9200',
+      hosts: ['http://localhost:9200'],
       prefix: 'mlcl-collections-unit'
     };
 
