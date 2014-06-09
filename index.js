@@ -136,7 +136,7 @@ collections.prototype.exec = function exec(name, options, callback) {
 };
 
 collections.prototype.processResult = function(query, result, callback) {
-  var r = { total: 0, limit: query.query.limit, from: query.query.from, items: [] };
+  var r = { total: 0, size: query.query.size, from: query.query.from, items: [] };
   r._meta = {
     module: 'collections',
     type: 'collection'
