@@ -145,7 +145,12 @@ collections.prototype.processResult = function(query, result, callback) {
   if (result && result.hits && result.hits.hits && result.hits.hits[0]) {
     r.total = result.hits.total;
     _.each(result.hits.hits, function(hit) {
-      var source = hit._source;
+      var source;
+      if(hit._source) {
+        source = hit._source;
+      } else if(hit.fields) {
+        source = hit.fields;
+      }
       source._meta = {
         module: 'elements',
         type: hit._type
