@@ -40,9 +40,18 @@ var collections = function () {
     self.registerCollections();
     molecuel.emit('mlcl::collections::init:post', self);
   });
+
+  //register block handler
+  molecuel.on('mlcl::blocks::init:modules', function(blocks) {
+    blocks.registerTypeHandler('collection', self.block);
+  });
+
   return this;
 };
 
+collections.prototype.block = function block(req, res, block, callback) {
+  callback(null, { html: "BASIC HTML"});
+};
 
 /* ************************************************************************
  SINGLETON CLASS DEFINITION
