@@ -49,37 +49,6 @@ var collections = function () {
   return this;
 };
 
-collections.prototype.block = function block(req, res, block, callback) {
-  var self = getInstance();
-  var params = {};
-  var data = block.data
-  if(data) {
-    if(data.params) {
-      Object.keys(data.params).forEach(function(name) {
-        var param = molecuel.utils.getVar(data.params[name], req, res);
-        if(name == 'index') {
-          param = self.elastic.getIndexName(param);
-        }
-        if(param) {
-          params[name] = param;
-        }
-      });
-      data.params = params;
-    }
-
-    var q = self.query(data.name, params);
-    q.exec(function(err, result) {
-      self.processResult(q, result, function(err, result) {
-        data.result = result;
-        callback(null, result);
-      });
-    });
-  } else {
-    debug(block);
-    callback(null);
-  }
-};
-
 /* ************************************************************************
  SINGLETON CLASS DEFINITION
  ************************************************************************ */
@@ -196,6 +165,37 @@ collections.prototype.processResult = function(query, result, callback) {
     });
   }
   return callback(null, r);
+};
+
+collections.prototype.block = function block(req, res, block, callback) {
+  var self = getInstance();
+  var params = {};
+  var data = block.data;
+  if(data) {
+    if(data.params) {
+      Object.keys(data.params).forEach(function(name) {
+        var param = molecuel.utils.getVar(data.params[name], req, res);
+        if(name == 'index') {
+          param = self.elastic.getIndexName(param);
+        }
+        if(param) {
+          params[name] = param;
+        }
+      });
+      data.params = params;
+    }
+
+    var q = self.query(data.name, params);
+    q.exec(function(err, result) {
+      self.processResult(q, result, function(err, result) {
+        data.result = result;
+        callback(null, result);
+      });
+    });
+  } else {
+    debug(block);
+    callback(null);
+  }
 };
 
 
