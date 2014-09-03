@@ -1,10 +1,11 @@
 {
   "name": "mlcl_collections",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "dependencies": {
     "underscore": ">=0.0.1",
     "async": ">=0.0.1",
-    "handlebars": ">=0.0.1"
+    "handlebars": ">=0.0.1",
+    "debug": ">=0.0.1"
   },
   "devDependencies": {
     "mocha": "*",
