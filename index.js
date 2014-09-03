@@ -6,7 +6,7 @@
 var _ = require('underscore');
 var fs = require('fs');
 var collquery = require ('./lib/query');
-//var async = require('async');
+var debug = require('debug')('mlcl_collections');
 
 var molecuel;
 
@@ -50,7 +50,34 @@ var collections = function () {
 };
 
 collections.prototype.block = function block(req, res, block, callback) {
-  callback(null, { html: "BASIC HTML"});
+  var self = getInstance();
+  var params = {};
+  var data = block.data
+  if(data) {
+    if(data.params) {
+      Object.keys(data.params).forEach(function(name) {
+        var param = molecuel.utils.getVar(data.params[name], req, res);
+        if(name == 'index') {
+          param = self.elastic.getIndexName(param);
+        }
+        if(param) {
+          params[name] = param;
+        }
+      });
+      data.params = params;
+    }
+
+    var q = self.query(data.name, params);
+    q.exec(function(err, result) {
+      self.processResult(q, result, function(err, result) {
+        data.result = result;
+        callback(null, result);
+      });
+    });
+  } else {
+    debug(block);
+    callback(null);
+  }
 };
 
 /* ************************************************************************
