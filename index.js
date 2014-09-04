@@ -189,6 +189,7 @@ collections.prototype.block = function block(req, res, block, callback) {
     q.exec(function(err, result) {
       self.processResult(q, result, function(err, result) {
         data.result = result;
+        data.items = result.items || [];
         callback(null, result);
       });
     });
