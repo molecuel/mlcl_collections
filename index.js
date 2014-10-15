@@ -188,8 +188,7 @@ collections.prototype.block = function block(req, res, block, callback) {
     var q = self.query(data.name, params);
     q.exec(function(err, result) {
       self.processResult(q, result, function(err, result) {
-        data.result = result;
-        data.items = result.items || [];
+        _.extend(data, result);
         callback(null, result);
       });
     });
