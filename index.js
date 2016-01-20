@@ -153,6 +153,9 @@ collections.prototype.processResult = function(query, result, callback) {
       var source;
       if(hit._source) {
         source = hit._source;
+        if(!source._id && hit._id) {
+          source._id = hit._id
+        }
       } else if(hit.fields) {
         source = hit.fields;
       }
