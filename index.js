@@ -158,6 +158,9 @@ collections.prototype.processResult = function(query, result, callback) {
         }
       } else if(hit.fields) {
         source = hit.fields;
+        if(!source._id && hit._id) {
+          source._id = hit._id
+        }
       }
       source._meta = {
         module: 'elements',
