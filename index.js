@@ -162,12 +162,14 @@ collections.prototype.processResult = function(query, result, callback) {
           source._id = hit._id
         }
       }
-      source._meta = {
-        module: 'elements',
-        type: hit._type
-      };
-      hit._view = { template: hit._type };
-      r.items.push(source);
+      if (source){
+        source._meta = {
+          module: 'elements',
+          type: hit._type
+        };
+        hit._view = { template: hit._type };
+        r.items.push(source);
+      }
     });
   }
   return callback(null, r);
