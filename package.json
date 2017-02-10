@@ -5,7 +5,7 @@
     "underscore": ">=0.0.1",
     "async": ">=0.0.1",
     "handlebars": ">=0.0.1",
-    "debug": ">=0.0.1"
+    "debug": ">=2.6.1"
   },
   "devDependencies": {
     "mocha": "*",
