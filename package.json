@@ -4,7 +4,7 @@
   "dependencies": {
     "underscore": ">=0.0.1",
     "async": ">=0.0.1",
-    "handlebars": ">=0.0.1",
+    "handlebars": ">=4.2.1",
     "debug": ">=0.0.1"
   },
   "devDependencies": {
